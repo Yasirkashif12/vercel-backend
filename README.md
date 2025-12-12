@@ -1,98 +1,130 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Backend - AI-Powered Notes Summarizer
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is the server that runs the AI-Powered Notes Summarizer app. Built with NestJS, it takes care of letting users sign up and log in, turning their text into smart summaries, and saving everything in the database.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## What Does This Backend Actually Do?
 
-## Description
+- Lets people create an account and log in with their email and password
+- Takes text from people and uses AI to create summaries automatically
+- Pulls out important action items, risks, and what to do next from the text
+- Saves all the summaries and user information safely in the database
+- Makes sure user data stays private and secure
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## What You Need to Have Ready
 
-## Project setup
+- **Node.js** version 18 or higher
+- **npm** (it comes with Node.js automatically)
+- **PostgreSQL** database (can be on your computer or on a server)
+
+## How to Get Started
+
+1. Open the backend folder:
 
 ```bash
-$ npm install
+cd backend
 ```
 
-## Compile and run the project
+2. Get all the code it needs:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+## Setting Up Your Configuration File
+
+Create a `.env` file in the backend folder with your information:
 
 ```bash
-# unit tests
-$ npm run test
+# PostgreSQL Database details
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+DB_NAME=notes_summarizer
 
-# e2e tests
-$ npm run test:e2e
+# Groq API key (get it from https://console.groq.com)
+GROQ_API_KEY=your_groq_key
 
-# test coverage
-$ npm run test:cov
+# JWT Secret (just use any random text for security)
+JWT_SECRET=your_random_secret_key
 ```
 
-## Deployment
+The server starts on **port 5000**.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Turn on the Server
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+To start it up with automatic refresh when you change code:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Commands You Can Use
 
-## Resources
+| Command | What It Does |
+|---------|-------------|
+| `npm run start` | Run the server normally |
+| `npm run start:dev` | Run and restart automatically when you save changes |
 
-Check out a few resources that may come in handy when working with NestJS:
+## How Everything is Put Together
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```
+src/
+├── main.ts                     # Where the app begins
+├── app.module.ts               # Brings everything together
+├── auth/                       # Handles logins and signups
+│   ├── auth.controller.ts
+│   ├── auth.service.ts
+│   ├── auth.module.ts
+│   ├── jwt.strategy.ts
+│   ├── jwt-payload-interface.ts
+│   └── dto/
+│       └── auth-credentials.dto.ts
+├── summaries/                  # Makes and retrieves summaries
+│   ├── summaries.controller.ts
+│   ├── summaries.service.ts
+│   ├── summaries.module.ts
+│   ├── entities/
+│   │   └── summary.entity.ts
+│   └── dto/
+│       └── create-summary.dto.ts
+├── user/                       # Stores user information
+│   ├── user.entity.ts
+│   └── user.module.ts
+└── config/
+    └── typeorm.config.ts       # Sets up the database
+```
 
-## Support
+## API Routes (Where the Frontend Connects)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Here are the web addresses the frontend uses:
 
-## Stay in touch
+**For accounts:**
+- `POST /auth/signup` - Make a new account with email and password
+- `POST /auth/signin` - Log in with email and password (you get a token back)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**For summaries:**
+- `POST /summaries/post` - Create a summary from text (needs your login token)
+- `GET /summaries/get` - Get all your saved summaries (needs your login token)
 
-## License
+## How Data is Stored
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Uses PostgreSQL with TypeORM. When the server starts, it automatically creates all the tables you need.
+
+## Password Rules
+
+When someone creates an account, their password must:
+- Have at least 8 letters
+- Have at least one capital letter
+- Have at least one small letter
+- Have at least one number
+- Have at least one symbol like @, $, !, %, *, ?, or &
+
+## Tools and Libraries We Use
+
+- **NestJS** - The framework that runs everything
+- **TypeORM** - Talks to the database
+- **PostgreSQL** - Where we keep all the data
+- **JWT** - Keeps people logged in safely
+- **Bcrypt** - Scrambles passwords so they're safe
+- **Groq API** - The AI that makes summaries

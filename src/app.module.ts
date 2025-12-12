@@ -10,7 +10,7 @@ import { SummariesModule } from './summaries/summaries.module';
     TypeOrmModule.forRoot(TypeOrmConfig),
     AuthModule,
     UserModule,
-    SummariesModule
+    SummariesModule,
   ],
 })
 export class AppModule {}

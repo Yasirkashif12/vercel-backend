@@ -16,17 +16,17 @@ import { Summary } from './entities/summary.entity';
 
 import { User } from '../user/user.entity';
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([Summary, User]),
+  imports: [
+    TypeOrmModule.forFeature([Summary, User]),
 
-        JwtModule.register({
-            secret: process.env.SECRET,
-            signOptions: { expiresIn: 36000 },
-        }),
-    ],
+    JwtModule.register({
+      secret: process.env.SECRET,
+      signOptions: { expiresIn: 36000 },
+    }),
+  ],
 
-    controllers: [SummariesController],
+  controllers: [SummariesController],
 
-    providers: [SummariesService, JwtAuthGuard],
+  providers: [SummariesService, JwtAuthGuard],
 })
-export class SummariesModule { }
+export class SummariesModule {}
