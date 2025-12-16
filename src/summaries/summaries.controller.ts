@@ -11,7 +11,6 @@ import { SummariesService } from './summaries.service';
 import { CreateSummaryDto } from './dto/create-summary.dto';
 import { JwtAuthGuard } from '../auth/jwt.strategy';
 import type { Request } from 'express';
-
 @Controller('summaries')
 @UseGuards(JwtAuthGuard)
 export class SummariesController {

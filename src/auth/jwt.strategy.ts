@@ -9,9 +9,12 @@ import { Request } from 'express';
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
+  //canActivate special classes that decide if a route can be accessed or not
 
   canActivate(context: ExecutionContext): boolean {
+    console.log('Before ', context);
     const request = context.switchToHttp().getRequest<Request>();
+    console.log('After', request);
     const authHeader = request.headers['authorization'];
     if (!authHeader) throw new UnauthorizedException('No token provided');
 
