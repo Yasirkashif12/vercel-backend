@@ -12,15 +12,13 @@ export class JwtAuthGuard implements CanActivate {
   //canActivate special classes that decide if a route can be accessed or not
 
   canActivate(context: ExecutionContext): boolean {
-    console.log('Before ', context);
     const request = context.switchToHttp().getRequest<Request>();
-    console.log('After', request);
-    const authHeader = request.headers['authorization'];
-    if (!authHeader) throw new UnauthorizedException('No token provided');
 
-    const [bearer, token] = authHeader.split(' ');
-    if (bearer !== 'Bearer' || !token)
-      throw new UnauthorizedException('Invalid token');
+    // Read token from cookie
+    const token =
+      request.cookies['token'] ||
+      request.headers['authorization']?.split(' ')[1];
+    if (!token) throw new UnauthorizedException('No token provided');
 
     try {
       const payload = this.jwtService.verify(token, {
@@ -29,8 +27,6 @@ export class JwtAuthGuard implements CanActivate {
       request['user'] = payload;
       return true;
     } catch (err) {
-      console.log('JWT verify error:', err.message);
-
       throw new UnauthorizedException('Invalid or expired token');
     }
   }
